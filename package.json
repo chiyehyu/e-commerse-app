@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "netlify dev"
@@ -45,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "netlify-cli": "^12.1.0"
   }
 }
