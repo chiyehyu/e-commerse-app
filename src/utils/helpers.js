@@ -5,4 +5,10 @@ export const formatPrice = (number) => {
   }).format(number / 100); //cent to dollar
 };
 
-export const getUniqueValues = () => {};
+export const getUniqueValues = (data, type) => {
+  let mapItems = data.map((item) => item[type]);
+  if (type === 'colors') {
+    return ['all', ...new Set(mapItems.flat())]; //using flat() to get all elements in subarrays and flat as new array
+  }
+  return ['all', ...new Set(mapItems)]; //using Set to get unique elements
+};

@@ -6,9 +6,52 @@ import { useCartContext } from '../context/cart_context';
 import AmountButtons from './AmountButtons';
 
 const AddToCart = (props) => {
+  const { addToCart } = useCartContext();
   const { id, colors = [''], stock } = props.product;
-  //console.log(colors, stock);
-  return <Wrapper> </Wrapper>;
+  const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+
+  const amountAdd = () => {
+    setAmount(amount + 1 > stock ? stock : amount + 1);
+  };
+
+  const amountMinus = () => {
+    setAmount(amount > 2 ? amount - 1 : 1);
+  };
+
+  return (
+    <Wrapper>
+      <div className="colors">
+        <span>colors:</span>
+        <div>
+          {colors.map((color, idx) => (
+            <button
+              style={{ background: color }}
+              className={`color-btn${mainColor === color ? ' active' : ''}`}
+              key={idx}
+              onClick={() => setMainColor(color)}
+            >
+              {mainColor === color && <FaCheck />}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="btn-container">
+        <AmountButtons
+          amount={amount}
+          increase={amountAdd}
+          decrease={amountMinus}
+        />
+        <Link
+          to="/cart"
+          className="btn"
+          onClick={() => addToCart(id, mainColor, amount, props.product)}
+        >
+          add to cart
+        </Link>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
